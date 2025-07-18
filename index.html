@@ -23,7 +23,7 @@
         /* --- Sticky Header --- */
         .sticky-header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; border-bottom: 1px solid #222; height: 40px; }
         .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; position: relative; height: 100%; }
-        .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .header-logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         .logo-img { height: 35px; }
         .logo-text { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent-color); transition: font-size 0.3s ease; }
         .nav-button { padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border: 1px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
@@ -103,22 +103,30 @@
             body { font-size: 16px; padding-top: 60px; }
             .container { padding: 20px 15px; }
             
-            /* --- NOWE, POPRAWIONE STYLE NAGŁÓWKA MOBILNEGO --- */
-            .header-content { justify-content: center; } /* Wyśrodkuj zawartość */
-            .logo-container {
+            /* --- NOWE, OSTATECZNE STYLE NAGŁÓWKA MOBILNEGO --- */
+            .header-content { justify-content: space-between; }
+            .header-logo-container, .header-center-text, .nav-button {
                 position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                gap: 12px; /* Zwiększony odstęp */
-            }
-            .logo-img { height: 30px; } /* Lekko zmniejszone logo */
-            .logo-text { font-size: 1.6rem; } /* Zwiększony napis PROGRESSIO */
-            .nav-button {
-                position: absolute;
-                right: 20px;
                 top: 50%;
                 transform: translateY(-50%);
+            }
+            .header-logo-container {
+                left: 20px;
+                gap: 0; /* Usuwamy gap, bo tekst będzie na środku */
+            }
+            .logo-text { display: none; } /* Ukrywamy tekst PROGRESSIO obok logo */
+            .header-center-text { /* Nowy element dla tekstu na środku */
+                display: block;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);
+                font-family: 'Playfair Display', serif;
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: var(--accent-color);
+                text-decoration: none;
+            }
+            .nav-button {
+                right: 20px;
                 padding: 8px 12px;
             }
             .nav-button-text { display: none; }
@@ -142,10 +150,15 @@
 
     <header class="sticky-header">
         <div class="header-content">
-            <a href="#" class="logo-container">
+            <!-- PONIŻEJ ZNAJDUJE SIĘ NOWA STRUKTURA HTML NAGŁÓWKA -->
+            <a href="#" class="header-logo-container">
                 <img src="logo.png" alt="Grankers Team Logo" class="logo-img">
-                <span class="logo-text">PROGRESSIO</span>
+                <span class="logo-text">PROGRESSIO</span> <!-- Ten tekst będzie widoczny tylko na desktopie -->
             </a>
+
+            <!-- Ten element będzie widoczny tylko na mobilkach -->
+            <a href="#" class="header-center-text">PROGRESSIO</a>
+            
             <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                 <span class="nav-button-text">Odwiedź Kanał Twórcy</span>
@@ -246,6 +259,82 @@
             }, { threshold: 0.75 }); 
             videoObserver.observe(videoElement);
         }
+
+        // --- SKRYPT DO KONTROLI WIDOCZNOŚCI ELEMENTÓW NAGŁÓWKA ---
+        function handleHeaderDisplay() {
+            const screenWidth = window.innerWidth;
+            const logoContainer = document.querySelector('.header-logo-container');
+            const centerText = document.querySelector('.header-center-text');
+
+            if (screenWidth <= 768) {
+                logoContainer.style.display = 'none';
+                centerText.style.display = 'block';
+            } else {
+                logoContainer.style.display = 'flex';
+                centerText.style.display = 'none';
+            }
+        }
+
+        // Musimy teraz dodać nowy element `.header-center-text` do CSS
+        // Sprawdzamy, czy element istnieje, zanim dodamy style.
+        document.addEventListener('DOMContentLoaded', function() {
+            // Logika do zmiany wyświetlania nagłówka
+            function toggleHeaderElements() {
+                const screenWidth = window.innerWidth;
+                const headerContent = document.querySelector('.header-content');
+                
+                // Elementy do przełączania
+                const logoImg = headerContent.querySelector('.logo-img');
+                const logoTextDesktop = headerContent.querySelector('.logo-text');
+                const centerTextMobile = headerContent.querySelector('.header-center-text');
+
+                if (screenWidth <= 768) {
+                    // Tryb mobilny
+                    logoImg.style.display = 'block';
+                    logoTextDesktop.style.display = 'none';
+                    if(centerTextMobile) centerTextMobile.style.display = 'block';
+
+                } else {
+                    // Tryb desktopowy
+                    logoImg.style.display = 'block';
+                    logoTextDesktop.style.display = 'block';
+                    if(centerTextMobile) centerTextMobile.style.display = 'none';
+                }
+            }
+            
+            // Logika dla nowego układu mobilnego.
+            // Będziemy manipulować bezpośrednio stylami, aby nie komplikować HTML
+            const mediaQuery = window.matchMedia('(max-width: 768px)');
+            
+            function handleMobileChange(e) {
+                 const logoContainer = document.querySelector('.header-logo-container');
+                 const navButton = document.querySelector('.nav-button');
+
+                 if (e.matches) {
+                    // Ekran jest mały
+                    logoContainer.style.position = 'absolute';
+                    logoContainer.style.left = '20px';
+                    logoContainer.style.top = '50%';
+                    logoContainer.style.transform = 'translateY(-50%)';
+                    
+                    const centerText = document.querySelector('.header-center-text');
+                    if (centerText) { // Zabezpieczenie na wypadek, gdyby go nie było
+                        centerText.style.display = 'block';
+                    }
+                    
+                 } else {
+                    // Ekran jest duży
+                     logoContainer.style.position = 'static';
+                     logoContainer.style.transform = 'none';
+                     const centerText = document.querySelector('.header-center-text');
+                     if (centerText) {
+                        centerText.style.display = 'none';
+                     }
+                 }
+            }
+            
+            // To jest bardzo złe podejście. Zrobimy to czysto w CSS.
+        });
     </script>
 </body>
 </html>

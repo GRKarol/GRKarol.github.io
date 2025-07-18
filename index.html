@@ -26,6 +26,7 @@
         .header-logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         .logo-img { height: 35px; }
         .logo-text { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent-color); transition: font-size 0.3s ease; }
+        .header-center-text { display: none; } /* Domyślnie ukryty na desktopie */
         .nav-button { padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border: 1px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
         .nav-button:hover { background-color: var(--accent-color); color: var(--bg-color); }
         .nav-button-text { display: inline; }
@@ -97,51 +98,43 @@
         .footer-brand-text { font-size: 1.1rem; color: var(--light-gray); margin-top: 0; font-style: italic; }
         .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* NOWY STYL DLA INFORMACJI O JĘZYKU */
+        .language-notice {
+            font-size: 1rem;
+            color: var(--light-gray);
+            font-style: italic;
+            max-width: 500px;
+            margin: -40px auto 40px auto;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
         
         /* --- Mobile Responsiveness --- */
         @media (max-width: 768px) {
             body { font-size: 16px; padding-top: 60px; }
             .container { padding: 20px 15px; }
             
-            /* --- NOWE, OSTATECZNE STYLE NAGŁÓWKA MOBILNEGO --- */
-            .header-content { justify-content: space-between; }
-            .header-logo-container, .header-center-text, .nav-button {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            .header-logo-container {
-                left: 20px;
-                gap: 0; /* Usuwamy gap, bo tekst będzie na środku */
-            }
-            .logo-text { display: none; } /* Ukrywamy tekst PROGRESSIO obok logo */
-            .header-center-text { /* Nowy element dla tekstu na środku */
-                display: block;
-                left: 50%;
-                transform: translateX(-50%) translateY(-50%);
-                font-family: 'Playfair Display', serif;
-                font-size: 1.6rem;
-                font-weight: 700;
-                color: var(--accent-color);
-                text-decoration: none;
-            }
-            .nav-button {
-                right: 20px;
-                padding: 8px 12px;
-            }
+            .header-content { justify-content: space-between; position: relative; }
+            .header-logo-container { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); }
+            .header-logo-container .logo-text { display: none; }
+            .header-center-text { display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--accent-color); text-decoration: none; }
+            .nav-button { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); padding: 8px 12px; }
             .nav-button-text { display: none; }
 
-            /* --- Zmniejszenie Odstępów i Czcionek --- */
             .hero p { font-size: 1.1rem; }
-            .section { padding: 60px 15px; }
-            .section-title { font-size: 2.5rem; }
-            .section-subtitle { font-size: 1.1rem; margin-bottom: 50px; }
-            .mantra-text { font-size: 2.2rem; }
-            
+            .section { padding: 50px 15px; }
+            .section-title { font-size: 2.2rem; }
+            .section-subtitle { font-size: 1.1rem; margin-bottom: 40px; }
+            .mantra-text { font-size: 2rem; }
+            .story-step { margin-bottom: 40px; }
             .story-step h3 { font-size: 1.6rem; }
             .story-step p { padding-left: 0; }
             .story-step-header { gap: 15px; }
             .story-step .icon { font-size: 2rem; }
+            .language-notice { margin-top: -20px; }
+            .footer { padding: 50px 15px; }
         }
 
     </style>
@@ -150,15 +143,11 @@
 
     <header class="sticky-header">
         <div class="header-content">
-            <!-- PONIŻEJ ZNAJDUJE SIĘ NOWA STRUKTURA HTML NAGŁÓWKA -->
             <a href="#" class="header-logo-container">
                 <img src="logo.png" alt="Grankers Team Logo" class="logo-img">
-                <span class="logo-text">PROGRESSIO</span> <!-- Ten tekst będzie widoczny tylko na desktopie -->
+                <span class="logo-text">PROGRESSIO</span>
             </a>
-
-            <!-- Ten element będzie widoczny tylko na mobilkach -->
             <a href="#" class="header-center-text">PROGRESSIO</a>
-            
             <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">
                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                 <span class="nav-button-text">Odwiedź Kanał Twórcy</span>
@@ -204,6 +193,10 @@
              <div class="container form-container">
                 <h2 class="section-title reveal">Jesteś Gotów Podjąć Działanie?</h2>
                 <p class="section-subtitle reveal">Zostaw swój e-mail, aby otrzymać powiadomienie o starcie sprzedaży. To Twoja deklaracja gotowości do podjęcia pracy.</p>
+                
+                <!-- PONIŻEJ ZNAJDUJE SIĘ DODANA INFORMACJA O JĘZYKU -->
+                <p class="language-notice reveal">Ważna informacja: Premierowa edycja dziennika Progressio zostanie wydana w języku polskim.</p>
+
                 <div class="google-form-wrapper reveal">
                     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec8oC7l_a1RE532VpDAhPNeL76i271pXGEUcXV7GdPwKc0ZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
                 </div>
@@ -259,82 +252,6 @@
             }, { threshold: 0.75 }); 
             videoObserver.observe(videoElement);
         }
-
-        // --- SKRYPT DO KONTROLI WIDOCZNOŚCI ELEMENTÓW NAGŁÓWKA ---
-        function handleHeaderDisplay() {
-            const screenWidth = window.innerWidth;
-            const logoContainer = document.querySelector('.header-logo-container');
-            const centerText = document.querySelector('.header-center-text');
-
-            if (screenWidth <= 768) {
-                logoContainer.style.display = 'none';
-                centerText.style.display = 'block';
-            } else {
-                logoContainer.style.display = 'flex';
-                centerText.style.display = 'none';
-            }
-        }
-
-        // Musimy teraz dodać nowy element `.header-center-text` do CSS
-        // Sprawdzamy, czy element istnieje, zanim dodamy style.
-        document.addEventListener('DOMContentLoaded', function() {
-            // Logika do zmiany wyświetlania nagłówka
-            function toggleHeaderElements() {
-                const screenWidth = window.innerWidth;
-                const headerContent = document.querySelector('.header-content');
-                
-                // Elementy do przełączania
-                const logoImg = headerContent.querySelector('.logo-img');
-                const logoTextDesktop = headerContent.querySelector('.logo-text');
-                const centerTextMobile = headerContent.querySelector('.header-center-text');
-
-                if (screenWidth <= 768) {
-                    // Tryb mobilny
-                    logoImg.style.display = 'block';
-                    logoTextDesktop.style.display = 'none';
-                    if(centerTextMobile) centerTextMobile.style.display = 'block';
-
-                } else {
-                    // Tryb desktopowy
-                    logoImg.style.display = 'block';
-                    logoTextDesktop.style.display = 'block';
-                    if(centerTextMobile) centerTextMobile.style.display = 'none';
-                }
-            }
-            
-            // Logika dla nowego układu mobilnego.
-            // Będziemy manipulować bezpośrednio stylami, aby nie komplikować HTML
-            const mediaQuery = window.matchMedia('(max-width: 768px)');
-            
-            function handleMobileChange(e) {
-                 const logoContainer = document.querySelector('.header-logo-container');
-                 const navButton = document.querySelector('.nav-button');
-
-                 if (e.matches) {
-                    // Ekran jest mały
-                    logoContainer.style.position = 'absolute';
-                    logoContainer.style.left = '20px';
-                    logoContainer.style.top = '50%';
-                    logoContainer.style.transform = 'translateY(-50%)';
-                    
-                    const centerText = document.querySelector('.header-center-text');
-                    if (centerText) { // Zabezpieczenie na wypadek, gdyby go nie było
-                        centerText.style.display = 'block';
-                    }
-                    
-                 } else {
-                    // Ekran jest duży
-                     logoContainer.style.position = 'static';
-                     logoContainer.style.transform = 'none';
-                     const centerText = document.querySelector('.header-center-text');
-                     if (centerText) {
-                        centerText.style.display = 'none';
-                     }
-                 }
-            }
-            
-            // To jest bardzo złe podejście. Zrobimy to czysto w CSS.
-        });
     </script>
 </body>
 </html>

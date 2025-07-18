@@ -26,8 +26,9 @@
         .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         .logo-img { height: 35px; }
         .logo-text { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent-color); }
-        .nav-button { padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border: 1px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; text-decoration: none; transition: all 0.3s; }
+        .nav-button { padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border: 1px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
         .nav-button:hover { background-color: var(--accent-color); color: var(--bg-color); }
+        .nav-button-text { display: inline; } /* Tekst przycisku widoczny domyślnie */
         
         /* --- Hero Section --- */
         .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; text-align: center; }
@@ -96,6 +97,33 @@
         .footer-brand-text { font-size: 1.1rem; color: var(--light-gray); margin-top: 0; font-style: italic; }
         .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            body { font-size: 16px; padding-top: 60px; }
+            .container { padding: 20px 15px; }
+            
+            /* Poprawki Nagłówka */
+            .logo-text { display: none; } /* Ukryj napis "PROGRESSIO" w nagłówku */
+            .nav-button-text { display: none; } /* Ukryj tekst przycisku YT */
+            .nav-button {
+                padding: 8px 12px;
+            }
+            .logo-container { gap: 10px; }
+
+            /* Zmniejszenie Odstępów i Czcionek */
+            .hero p { font-size: 1.1rem; }
+            .section { padding: 60px 15px; }
+            .section-title { font-size: 2.5rem; }
+            .section-subtitle { font-size: 1.1rem; margin-bottom: 50px; }
+            .mantra-text { font-size: 2.2rem; }
+            
+            .story-step h3 { font-size: 1.6rem; }
+            .story-step p { padding-left: 0; }
+            .story-step-header { gap: 15px; }
+            .story-step .icon { font-size: 2rem; }
+        }
+
     </style>
 </head>
 <body>
@@ -106,7 +134,11 @@
                 <img src="logo.png" alt="Grankers Team Logo" class="logo-img">
                 <span class="logo-text">PROGRESSIO</span>
             </a>
-            <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">Odwiedź Kanał Twórcy</a>
+            <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">
+                 <!-- Ikona YouTube w formacie SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                <span class="nav-button-text">Odwiedź Kanał Twórcy</span>
+            </a>
         </div>
     </header>
 
@@ -162,15 +194,13 @@
             </div>
             <p class="footer-brand-text"><strong>PROGRESSIO by Grankers Team</strong><br>
             "Zwycięstwo nie jest dla tych, którzy go pragną. Jest dla tych, którzy do niego dążą."</p>
-            <!-- PONIŻEJ ZNAJDUJE SIĘ OSTATECZNA, POPRAWIONA WERSJA DATY -->
             <p style="margin-top: 30px;">&copy; 2025 Progressio. Wszelkie prawa zastrzeżone.</p>
         </div>
     </footer>
 
-    <!-- Skrypty do animacji i wideo -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // --- Skrypt do animacji "reveal on scroll" ---
+        // Skrypty do animacji i wideo pozostają bez zmian
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -181,7 +211,6 @@
         }, { threshold: 0.1 });
         revealElements.forEach(el => { revealObserver.observe(el); });
 
-        // --- Skrypt do Autoplay Wideo YouTube ---
         let player;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
@@ -189,12 +218,8 @@
                 width: '640',
                 videoId: 's3_m3PV6-jo',
                 playerVars: {
-                    'autoplay': 0,
-                    'controls': 1,
-                    'rel': 0,
-                    'showinfo': 0,
-                    'modestbranding': 1,
-                    'mute': 1 
+                    'autoplay': 0, 'controls': 1, 'rel': 0,
+                    'showinfo': 0, 'modestbranding': 1, 'mute': 1 
                 },
                 events: { 'onReady': onPlayerReady }
             });

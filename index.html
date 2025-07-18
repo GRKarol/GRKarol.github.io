@@ -25,10 +25,10 @@
         .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         .logo-img { height: 35px; }
-        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent-color); }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent-color); transition: font-size 0.3s ease; }
         .nav-button { padding: 10px 20px; font-size: 0.9rem; font-weight: 700; border: 1px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
         .nav-button:hover { background-color: var(--accent-color); color: var(--bg-color); }
-        .nav-button-text { display: inline; } /* Tekst przycisku widoczny domyślnie */
+        .nav-button-text { display: inline; }
         
         /* --- Hero Section --- */
         .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; text-align: center; }
@@ -103,15 +103,15 @@
             body { font-size: 16px; padding-top: 60px; }
             .container { padding: 20px 15px; }
             
-            /* Poprawki Nagłówka */
-            .logo-text { display: none; } /* Ukryj napis "PROGRESSIO" w nagłówku */
+            /* --- POPRAWKI NAGŁÓWKA --- */
+            .logo-text { font-size: 1.3rem; } /* Zmniejszony napis PROGRESSIO */
+            .logo-container { gap: 10px; } /* Zmniejszony odstęp między logo a napisem */
             .nav-button-text { display: none; } /* Ukryj tekst przycisku YT */
             .nav-button {
                 padding: 8px 12px;
             }
-            .logo-container { gap: 10px; }
 
-            /* Zmniejszenie Odstępów i Czcionek */
+            /* --- Zmniejszenie Odstępów i Czcionek --- */
             .hero p { font-size: 1.1rem; }
             .section { padding: 60px 15px; }
             .section-title { font-size: 2.5rem; }
@@ -135,8 +135,7 @@
                 <span class="logo-text">PROGRESSIO</span>
             </a>
             <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">
-                 <!-- Ikona YouTube w formacie SVG -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                 <span class="nav-button-text">Odwiedź Kanał Twórcy</span>
             </a>
         </div>
@@ -149,6 +148,7 @@
     </section>
 
     <main>
+        <!-- Reszta strony pozostaje bez zmian -->
         <section class="section">
             <div class="container">
                 <h2 class="section-title reveal">Poznaj Filozofię w 30 Sekund</h2>

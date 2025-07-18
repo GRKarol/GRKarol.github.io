@@ -21,8 +21,8 @@
         .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
         
         /* --- Sticky Header --- */
-        .sticky-header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; border-bottom: 1px solid #222; }
-        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .sticky-header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; border-bottom: 1px solid #222; height: 40px; }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; position: relative; height: 100%; }
         .logo-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
         .logo-img { height: 35px; }
         .logo-text { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent-color); transition: font-size 0.3s ease; }
@@ -103,13 +103,25 @@
             body { font-size: 16px; padding-top: 60px; }
             .container { padding: 20px 15px; }
             
-            /* --- POPRAWKI NAGŁÓWKA --- */
-            .logo-text { font-size: 1.3rem; } /* Zmniejszony napis PROGRESSIO */
-            .logo-container { gap: 10px; } /* Zmniejszony odstęp między logo a napisem */
-            .nav-button-text { display: none; } /* Ukryj tekst przycisku YT */
+            /* --- NOWE, POPRAWIONE STYLE NAGŁÓWKA MOBILNEGO --- */
+            .header-content { justify-content: center; } /* Wyśrodkuj zawartość */
+            .logo-container {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                gap: 12px; /* Zwiększony odstęp */
+            }
+            .logo-img { height: 30px; } /* Lekko zmniejszone logo */
+            .logo-text { font-size: 1.6rem; } /* Zwiększony napis PROGRESSIO */
             .nav-button {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
                 padding: 8px 12px;
             }
+            .nav-button-text { display: none; }
 
             /* --- Zmniejszenie Odstępów i Czcionek --- */
             .hero p { font-size: 1.1rem; }

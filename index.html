@@ -20,7 +20,7 @@
         body { margin: 0; padding-top: 70px; font-family: 'Lato', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.8; font-size: 18px; font-weight: 300; }
         .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
         
-        /* --- Nagłówek --- */
+        /* --- NOWY, POPRAWIONY NAGŁÓWEK --- */
         .sticky-header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); z-index: 1000; padding: 15px 0; border-bottom: 1px solid #222; height: 40px; }
         .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 100%; }
         .header-left, .header-right { flex: 1; display: flex; }
@@ -36,6 +36,9 @@
         .nav-button-text { display: inline; }
         .lang-switcher { background-color: transparent; border: 1px solid var(--light-gray); color: var(--light-gray); padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.3s; text-decoration: none;}
         .lang-switcher:hover { background-color: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); }
+
+        /* NOWY PASEK JĘZYKOWY DLA MOBILI */
+        .mobile-lang-bar { display: none; }
 
         /* --- Hero Section --- */
         .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; text-align: center; }
@@ -70,23 +73,35 @@
         .footer-brand-text { font-size: 1.1rem; color: var(--light-gray); margin-top: 0; font-style: italic; }
         .language-notice { font-size: 1rem; color: var(--light-gray); font-style: italic; max-width: 500px; margin: -40px auto 40px auto; padding: 10px; border: 1px solid #333; border-radius: 5px; }
         
-        #lang-switcher-mobile { display: none; }
         .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         
         @media (max-width: 768px) {
-            body { font-size: 16px; padding-top: 60px; }
+            body { font-size: 16px; padding-top: 100px; /* Zwiększony padding dla paska języka */ }
             .container { padding: 20px 15px; }
             
+            /* --- NOWE, POPRAWIONE STYLE NAGŁÓWKA MOBILNEGO --- */
             .header-left .logo-text { display: none; }
-            .header-center .logo-img { display: none; }
-            .header-center .logo-text { font-size: 1.6rem; }
-            .header-left { flex: 1; }
-            .header-center { flex: 2; }
-            .header-right { flex: 1; }
-            #lang-switcher { display: none; }
-            .footer #lang-switcher-mobile { display: block; margin: 30px auto; }
-            
+            .header-center .logo-img { display: block; } /* Lew po lewej */
+            .header-center .logo-text { font-size: 1.6rem; } /* Napis na środku */
+            .header-left { display: none; } /* Ukrywamy przełącznik desktopowy */
+            .nav-button-text { display: none; }
+            .nav-button { padding: 8px 12px; }
+
+            /* NOWY PASEK JĘZYKOWY DLA MOBILI */
+            .mobile-lang-bar {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: #1a1a1a;
+                text-align: center;
+                padding: 8px 0;
+                z-index: 1001;
+                border-bottom: 1px solid #333;
+            }
+
             .hero p { font-size: 1.1rem; }
             .section { padding: 50px 15px; }
             .section-title { font-size: 2.2rem; }
@@ -103,10 +118,14 @@
     </style>
 </head>
 <body>
+    <div class="mobile-lang-bar">
+        <a href="en.html" class="lang-switcher">Switch to English</a>
+    </div>
+
     <header class="sticky-header">
         <div class="header-content">
             <div class="header-left">
-                <a href="en.html" id="lang-switcher" class="lang-switcher">Switch to EN</a>
+                <a href="en.html" class="lang-switcher">Switch to EN</a>
             </div>
             <a href="#" class="header-center logo-container">
                 <img src="logo.png" alt="Grankers Team Logo" class="logo-img">
@@ -133,7 +152,7 @@
                 <h2 class="section-title reveal">OBEJRZYJ NASZ MANIFEST</h2>
                 <p class="section-subtitle reveal">Zanim zdecydujesz, posłuchaj idei, która jest sercem tego systemu. To ona odróżnia tych, którzy działają, od tych, którzy tylko planują.</p>
                 <div class="video-wrapper reveal">
-                    <div id="youtube-player"></div>
+                    <iframe id="youtube-player" src="https://www.youtube.com/embed/dR-sFVDuHbQ?enablejsapi=1&cc_load_policy=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
@@ -175,7 +194,7 @@
             <p class="footer-brand-text"><strong>PROGRESSIO by Grankers Team</strong><br>
             "Zwycięstwo nie jest dla tych, którzy go pragną. Jest dla tych, którzy do niego dążą."</p>
             
-            <a href="en.html" id="lang-switcher-mobile" class="lang-switcher">Switch to EN</a>
+            <a href="en.html" id="lang-switcher-mobile" class="lang-switcher">Switch to English</a>
 
             <p style="margin-top: 30px;">&copy; 2025 Progressio. Wszelkie prawa zastrzeżone.</p>
         </div>
@@ -200,7 +219,7 @@
                 height: '390',
                 width: '640',
                 videoId: 'dR-sFVDuHbQ',
-                playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'showinfo': 0, 'modestbranding': 1, 'mute': 1, 'cc_load_policy': 0 },
+                playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'showinfo': 0, 'modestbranding': 1, 'mute': 1 },
                 events: { 'onReady': onPlayerReady }
             });
         }

@@ -9,7 +9,7 @@
     <!-- Open Graph for SEO and social sharing -->
     <meta property="og:title" content="Progressio - System, który buduje zwycięzców">
     <meta property="og:description" content="Precyzyjny system do projektowania przyszłości i egzekwowania planu z dyscypliną. Dołącz do listy oczekujących.">
-    <meta property="og:image" content="hero-image.png"> <!-- Twój plik PNG -->
+    <meta property="og:image" content="hero-image.png">
     <meta property="og:url" content="https://landingpage.progressio.giize.com/">
     <meta property="og:type" content="website">
     <!-- Favicon -->
@@ -66,7 +66,7 @@
         #form-section { background-color: var(--dark-gray); padding-top: 100px; padding-bottom: 100px; }
         .form-container h2 { font-size: 2.5rem; }
         .google-form-wrapper { position: relative; width: 100%; max-width: 500px; margin: 30px auto 0 auto; height: 260px; }
-        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals"; } /* Rozszerzona poprawka CORS */
+        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals"; }
         .form-benefit-text { font-size: 1.1rem; color: var(--text-color); margin-top: 40px; font-weight: 400; }
         .footer { padding: 60px 20px; font-size: 0.9rem; color: #777; text-align: center; border-top: 1px solid #222; }
         .footer-logo-container { margin-bottom: 30px; }
@@ -76,7 +76,6 @@
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .language-notice { font-size: 1rem; color: var(--light-gray); font-style: italic; max-width: 500px; margin: -40px auto 40px auto; padding: 10px; border: 1px solid #333; border-radius: 5px; }
         
-        /* Stylizacja przełącznika języka */
         .language-switcher { 
             text-align: center; 
             padding: 5px 0; 
@@ -84,7 +83,7 @@
             border-bottom: 1px solid #222; 
             z-index: 999; 
             position: relative; 
-            display: none; /* Ukryty na PC, widoczny tylko na mobile */
+            display: none;
         }
         .language-dropdown {
             position: relative;
@@ -139,7 +138,6 @@
         }
         .language-dropdown.open .language-dropdown-content { display: block; }
 
-        /* Większy przycisk na PC */
         @media (min-width: 769px) {
             .language-dropdown-button {
                 font-size: 1.1rem;
@@ -149,10 +147,9 @@
                 padding: 10px 20px;
                 font-size: 1.1rem;
             }
-            .google-form-wrapper { height: 500px; max-width: 700px; } /* Większy formularz na PC */
+            .google-form-wrapper { height: 500px; max-width: 700px; }
         }
 
-        /* Reszta media queries */
         @media (max-width: 768px) {
             body { font-size: 16px; padding-top: 60px; }
             .container { padding: 20px 15px; }
@@ -164,7 +161,7 @@
                 top: 50%;
                 transform: translateY(-50%);
             }
-            .header-left .logo-text { display: none; } /* Ukrywamy tekst na mobile w lewym logo */
+            .header-left .logo-text { display: none; }
             
             .header-center { 
                 display: flex;
@@ -197,12 +194,11 @@
             .story-step .icon { font-size: 2rem; }
             .language-notice { margin-top: -20px; }
             .footer { padding: 50px 15px; }
-            .google-form-wrapper { min-height: 300px; } /* Lepszy rozmiar formularza na mobile */
+            .google-form-wrapper { min-height: 300px; }
         }
 
-        /* Ukrywamy .header-center na PC */
         @media (min-width: 769px) {
-            .header-center { display: flex; } /* Widoczny na PC dla logo na środku */
+            .header-center { display: flex; }
         }
     </style>
 </head>
@@ -210,76 +206,74 @@
     <header class="sticky-header">
         <div class="header-content">
             <div class="header-left">
-                <!-- Language switcher on the left for PC -->
                 <div class="language-dropdown">
-                    <button class="language-dropdown-button" onclick="toggleDropdown()" aria-label="Switch language">
-                        <img src="globe.png" width="20" height="20" alt="Language Switcher" loading="lazy"> <!-- Place for globe image -->
-                        EN <!-- Current language -->
+                    <button class="language-dropdown-button" onclick="toggleDropdown()" aria-label="Zmień język">
+                        <img src="globe.png" width="20" height="20" alt="Przełącznik języka" loading="lazy">
+                        PL
                     </button>
                     <div class="language-dropdown-content">
-                        <a href="https://landingpage.progressio.giize.com">PL</a>
-                        <a href="#" class="active">EN</a>
+                        <a href="index.html" class="active">PL</a>
+                        <a href="en.html">EN</a>
                     </div>
                 </div>
             </div>
             <div class="header-center">
-                <!-- Logo in the center for PC -->
                 <a href="#" class="logo-container">
-                    <img src="logo.png" alt="Grankers Team Logo" class="logo-img" loading="lazy">
+                    <img src="logo.png" alt="Logo Grankers Team" class="logo-img" loading="lazy">
                     <span class="logo-text">PROGRESSIO</span>
                 </a>
             </div>
             <div class="header-right">
                 <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                    <span class="nav-button-text">Visit the Creator's Channel</span>
+                    <span class="nav-button-text">Odwiedź kanał twórcy</span>
                 </a>
             </div>
         </div>
     </header>
 
     <section class="hero container">
-        <h1 class="reveal">THE SYSTEM THAT BUILDS WINNERS.</h1>
-        <p class="reveal">The greatest power you can possess is the ability to keep your word to yourself. It separates intentions from results. Progressio is not a collection of inspirations. It is a precise system that teaches how to design your future and then, day by day, execute that plan with uncompromising discipline.</p>
-        <a href="#form-section" class="cta-button reveal" aria-label="Join the waiting list">Join the Waiting List</a>
+        <h1 class="reveal">SYSTEM, KTÓRY BUDUJE ZWYCIĘZCÓW.</h1>
+        <p class="reveal">Największą siłą, jaką możesz posiadać, jest zdolność dotrzymywania słowa danego samemu sobie. To oddziela intencje od wyników. Progressio to nie zbiór inspiracji. To precyzyjny system, który uczy, jak projektować swoją przyszłość i dzień po dniu realizować ten plan z bezkompromisową dyscypliną.</p>
+        <a href="#form-section" class="cta-button reveal" aria-label="Dołącz do listy oczekujących">Dołącz do listy oczekujących</a>
     </section>
 
     <main>
         <section class="section">
             <div class="container">
-                <h2 class="section-title reveal">WATCH OUR MANIFESTO</h2>
-                <p class="section-subtitle reveal">Before you decide, listen to the idea that is the heart of this system. It distinguishes those who act from those who only plan.</p>
+                <h2 class="section-title reveal">OGLĄDAJ NASZ MANIFEST</h2>
+                <p class="section-subtitle reveal">Zanim podejmiesz decyzję, poznaj ideę, która stanowi serce tego systemu. Wyróżnia ona tych, którzy działają, od tych, którzy tylko planują.</p>
                 <div class="video-wrapper reveal">
-                    <div id="youtube-player"></div>
+                    <iframe id="youtube-player" width="100%" height="100%" src="https://www.youtube.com/embed/dR-sFVDuHbQ?autoplay=1&mute=1&loop=1&playlist=dR-sFVDuHbQ&start=0" title="Film YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
 
         <section class="section mantra-section">
             <div class="container">
-                <p class="mantra-text reveal">PLAN. PROCESS. PROGRESS.</p>
+                <p class="mantra-text reveal">PLAN. PROCES. POSTĘP.</p>
             </div>
         </section>
         
         <section class="section">
             <div class="container">
-                 <h2 class="section-title reveal">This is not a product. This is your new identity.</h2>
-                 <p class="section-subtitle reveal">Progressio doesn't give you a temporary boost. It's a system that permanently changes your mental software. It teaches you to think and act like a winner, for whom discipline and self-control are as natural as breathing.</p>
-                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">I</div><h3>Confrontation with Chaos</h3></div><p>Everything starts with clarity. Instead of general dreams, you create a precise, 90-day strategy. You define your goal, identify the key habit that will lead you to it, and prepare for obstacles before they appear.</p></div>
-                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">II</div><h3>Daily Action</h3></div><p>Great goals are achieved through small, consistent steps. A simple, daily recording system becomes your mirror. It forces you to confront reality and builds momentum that is more powerful than any temporary motivation.</p></div>
-                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">III</div><h3>Mastery through Reflection</h3></div><p>Action without analysis is chaos. Systematic reflection on your progress allows you to learn from your own experiences. You adapt your strategy, becoming more effective and aware strategist of your life with each week.</p></div>
+                 <h2 class="section-title reveal">To nie jest produkt. To Twoja nowa tożsamość.</h2>
+                 <p class="section-subtitle reveal">Progressio nie daje chwilowego impulsu. To system, który trwale zmienia Twoje oprogramowanie mentalne. Uczy myśleć i działać jak zwycięzca, dla którego dyscyplina i samokontrola są tak naturalne jak oddychanie.</p>
+                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">I</div><h3>Konfrontacja z chaosem</h3></div><p>Wszystko zaczyna się od jasności. Zamiast ogólnych marzeń tworzysz precyzyjną, 90-dniową strategię. Określasz cel, identyfikujesz kluczowy nawyk, który Cię do niego doprowadzi, i przygotowujesz się na przeszkody, zanim się pojawią.</p></div>
+                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">II</div><h3>Codzienne działanie</h3></div><p>Wielkie cele osiąga się przez małe, konsekwentne kroki. Prosty, codzienny system zapisu staje się Twoim lustrem. Zmusza Cię do konfrontacji z rzeczywistością i buduje impet silniejszy niż chwilowa motywacja.</p></div>
+                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">III</div><h3>Mistrzostwo przez refleksję</h3></div><p>Działanie bez analizy to chaos. Systematyczna refleksja nad Twoimi postępami pozwala uczyć się na własnych doświadczeniach. Z każdym tygodniem dostosowujesz strategię, stając się bardziej efektywnym i świadomym strategiem swojego życia.</p></div>
             </div>
         </section>
 
         <section id="form-section" class="section">
              <div class="container form-container">
-                <h2 class="section-title reveal">Are You Ready to Take Action?</h2>
-                <p class="section-subtitle reveal">Leave your email to receive a notification about the sales launch. This is your declaration of readiness to start working.</p>
-                <p class="language-notice reveal">Important information: The premiere edition of the Progressio journal will be released in Polish.</p>
+                <h2 class="section-title reveal">Czy jesteś gotów podjąć działanie?</h2>
+                <p class="section-subtitle reveal">Zostaw swój email, aby otrzymać powiadomienie o rozpoczęciu sprzedaży. To Twoja deklaracja gotowości do rozpoczęcia pracy.</p>
+                <p class="language-notice reveal">Ważna informacja: Premierowa edycja dziennika Progressio zostanie wydana w języku polskim.</p>
                 <div class="google-form-wrapper reveal">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec8oC7l_a1RE532VpDAhPNeL76i271pXGEUcXV7GdPwKc0ZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals">Loading…</iframe>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec8oC7l_a1RE532VpDAhPNeL76i271pXGEUcXV7GdPwKc0ZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals">Ładowanie…</iframe>
                 </div>
-                <p class="form-benefit-text reveal">In thanks for your trust, on the day of the journal's premiere, you will receive a <strong>special discount</strong> from us and access to exclusive additional materials.</p>
+                <p class="form-benefit-text reveal">W podziękowaniu za Twoje zaufanie, w dniu premiery dziennika otrzymasz od nas <strong>specjalną zniżkę</strong> oraz dostęp do ekskluzywnych materiałów dodatkowych.</p>
              </div>
         </section>
     </main>
@@ -287,15 +281,14 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-logo-container">
-                <img src="logo.png" alt="Grankers Team Logo" class="footer-logo" loading="lazy">
+                <img src="logo.png" alt="Logo Grankers Team" class="footer-logo" loading="lazy">
             </div>
             <p class="footer-brand-text"><strong>PROGRESSIO by Grankers Team</strong><br>
-            "Victory is not for those who desire it. It is for those who pursue it."</p>
-            <p style="margin-top: 30px;">&copy; 2025 Progressio. All rights reserved.</p>
+            "Zwycięstwo nie jest dla tych, którzy go pragną. Jest dla tych, którzy za nim podążają."</p>
+            <p style="margin-top: 30px;">© 2025 Progressio. Wszystkie prawa zastrzeżone.</p>
         </div>
     </footer>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
@@ -307,49 +300,6 @@
             });
         }, { threshold: 0.1 });
         revealElements.forEach(el => { revealObserver.observe(el); });
-
-        let player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '390',
-                width: '640',
-                videoId: 'dR-sFVDuHbQ',
-                playerVars: { 
-                    'autoplay': 0, 
-                    'controls': 1, 
-                    'rel': 0, 
-                    'showinfo': 0, 
-                    'modestbranding': 1, 
-                    'mute': 1,
-                    'cc_load_policy': 1,
-                    'cc_lang_pref': 'en',
-                    'playsinline': 1  // Pomaga na mobile
-                },
-                events: { 
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange,
-                    'onError': function(event) { console.log('Video error: ' + event.data); }  // Debug błędów
-                }
-            });
-        }
-        function onPlayerReady(event) {
-            console.log('Video player ready');  // Debug: Sprawdź, czy player się ładuje
-            const videoElement = document.getElementById('youtube-player');
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) { player.playVideo(); }
-                    else { player.pauseVideo(); }
-                });
-            }, { threshold: 0.75 }); 
-            videoObserver.observe(videoElement);
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                player.seekTo(0);
-                player.pauseVideo();
-            }
-        }
 
         function toggleDropdown() {
             const dropdown = event.target.closest('.language-dropdown');

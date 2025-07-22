@@ -9,7 +9,7 @@
     <!-- Open Graph for SEO and social sharing -->
     <meta property="og:title" content="Progressio - The System That Builds Winners">
     <meta property="og:description" content="A precise system for designing your future and executing the plan with discipline. Join the waiting list.">
-    <meta property="og:image" content="hero-image.png"> <!-- Twój plik PNG -->
+    <meta property="og:image" content="hero-image.png">
     <meta property="og:url" content="https://landingpage.progressio.giize.com/en.html">
     <meta property="og:type" content="website">
     <!-- Favicon -->
@@ -66,7 +66,7 @@
         #form-section { background-color: var(--dark-gray); padding-top: 100px; padding-bottom: 100px; }
         .form-container h2 { font-size: 2.5rem; }
         .google-form-wrapper { position: relative; width: 100%; max-width: 500px; margin: 30px auto 0 auto; height: 260px; }
-        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals"; } /* Rozszerzona poprawka CORS */
+        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals"; }
         .form-benefit-text { font-size: 1.1rem; color: var(--text-color); margin-top: 40px; font-weight: 400; }
         .footer { padding: 60px 20px; font-size: 0.9rem; color: #777; text-align: center; border-top: 1px solid #222; }
         .footer-logo-container { margin-bottom: 30px; }
@@ -76,7 +76,6 @@
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .language-notice { font-size: 1rem; color: var(--light-gray); font-style: italic; max-width: 500px; margin: -40px auto 40px auto; padding: 10px; border: 1px solid #333; border-radius: 5px; }
         
-        /* Stylizacja przełącznika języka */
         .language-switcher { 
             text-align: center; 
             padding: 5px 0; 
@@ -84,7 +83,7 @@
             border-bottom: 1px solid #222; 
             z-index: 999; 
             position: relative; 
-            display: none; /* Ukryty na PC, widoczny tylko na mobile */
+            display: none;
         }
         .language-dropdown {
             position: relative;
@@ -139,7 +138,6 @@
         }
         .language-dropdown.open .language-dropdown-content { display: block; }
 
-        /* Większy przycisk na PC */
         @media (min-width: 769px) {
             .language-dropdown-button {
                 font-size: 1.1rem;
@@ -149,10 +147,9 @@
                 padding: 10px 20px;
                 font-size: 1.1rem;
             }
-            .google-form-wrapper { height: 500px; max-width: 700px; } /* Większy formularz na PC */
+            .google-form-wrapper { height: 500px; max-width: 700px; }
         }
 
-        /* Reszta media queries */
         @media (max-width: 768px) {
             body { font-size: 16px; padding-top: 60px; }
             .container { padding: 20px 15px; }
@@ -164,7 +161,7 @@
                 top: 50%;
                 transform: translateY(-50%);
             }
-            .header-left .logo-text { display: none; } /* Ukrywamy tekst na mobile w lewym logo */
+            .header-left .logo-text { display: none; }
             
             .header-center { 
                 display: flex;
@@ -197,33 +194,36 @@
             .story-step .icon { font-size: 2rem; }
             .language-notice { margin-top: -20px; }
             .footer { padding: 50px 15px; }
-            .google-form-wrapper { min-height: 300px; } /* Lepszy rozmiar formularza na mobile */
+            .google-form-wrapper { min-height: 300px; }
         }
 
-        /* Ukrywamy .header-center na PC */
         @media (min-width: 769px) {
-            .header-center { display: flex; } /* Widoczny na PC dla logo na środku */
+            .header-center { display: flex; }
         }
     </style>
 </head>
 <body>
+    <script>
+        // Redirect to Polish version (index.html) on page load to ensure default Polish language
+        window.onload = function() {
+            window.location.href = "index.html";
+        };
+    </script>
     <header class="sticky-header">
         <div class="header-content">
             <div class="header-left">
-                <!-- Language switcher on the left for PC -->
                 <div class="language-dropdown">
                     <button class="language-dropdown-button" onclick="toggleDropdown()" aria-label="Switch language">
-                        <img src="globe.png" width="20" height="20" alt="Language Switcher" loading="lazy"> <!-- Place for globe image -->
-                        EN <!-- Current language -->
+                        <img src="globe.png" width="20" height="20" alt="Language Switcher" loading="lazy">
+                        EN
                     </button>
                     <div class="language-dropdown-content">
-                        <a href="https://landingpage.progressio.giize.com">PL</a>
-                        <a href="#" class="active">EN</a>
+                        <a href="index.html">PL</a>
+                        <a href="en.html" class="active">EN</a>
                     </div>
                 </div>
             </div>
             <div class="header-center">
-                <!-- Logo in the center for PC -->
                 <a href="#" class="logo-container">
                     <img src="logo.png" alt="Grankers Team Logo" class="logo-img" loading="lazy">
                     <span class="logo-text">PROGRESSIO</span>
@@ -250,7 +250,7 @@
                 <h2 class="section-title reveal">WATCH OUR MANIFESTO</h2>
                 <p class="section-subtitle reveal">Before you decide, listen to the idea that is the heart of this system. It distinguishes those who act from those who only plan.</p>
                 <div class="video-wrapper reveal">
-                    <div id="youtube-player"></div>
+                    <iframe id="youtube-player" width="100%" height="100%" src="https://www.youtube.com/embed/dR-sFVDuHbQ?autoplay=1&mute=1&loop=1&playlist=dR-sFVDuHbQ&start=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
@@ -291,11 +291,10 @@
             </div>
             <p class="footer-brand-text"><strong>PROGRESSIO by Grankers Team</strong><br>
             "Victory is not for those who desire it. It is for those who pursue it."</p>
-            <p style="margin-top: 30px;">&copy; 2025 Progressio. All rights reserved.</p>
+            <p style="margin-top: 30px;">© 2025 Progressio. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
@@ -307,49 +306,6 @@
             });
         }, { threshold: 0.1 });
         revealElements.forEach(el => { revealObserver.observe(el); });
-
-        let player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '390',
-                width: '640',
-                videoId: 'dR-sFVDuHbQ',
-                playerVars: { 
-                    'autoplay': 0, 
-                    'controls': 1, 
-                    'rel': 0, 
-                    'showinfo': 0, 
-                    'modestbranding': 1, 
-                    'mute': 1,
-                    'cc_load_policy': 1,
-                    'cc_lang_pref': 'en',
-                    'playsinline': 1  // Pomaga na mobile
-                },
-                events: { 
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange,
-                    'onError': function(event) { console.log('Video error: ' + event.data); }  // Debug błędów
-                }
-            });
-        }
-        function onPlayerReady(event) {
-            console.log('Video player ready');  // Debug: Sprawdź, czy player się ładuje
-            const videoElement = document.getElementById('youtube-player');
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) { player.playVideo(); }
-                    else { player.pauseVideo(); }
-                });
-            }, { threshold: 0.75 }); 
-            videoObserver.observe(videoElement);
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                player.seekTo(0);
-                player.pauseVideo();
-            }
-        }
 
         function toggleDropdown() {
             const dropdown = event.target.closest('.language-dropdown');

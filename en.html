@@ -61,7 +61,7 @@
         .play-button { padding: 15px 30px; font-size: 1.2rem; font-weight: 700; border: 2px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; transition: all 0.3s ease; }
         .play-button:hover { background-color: var(--accent-color); color: var(--bg-color); transform: scale(1.05); }
         .story-step { margin-bottom: 60px; text-align: left; display: flex; flex-direction: column; align-items: center; max-width: 600px; margin-left: auto; margin-right: auto;}
-        .story-step-header { display: flex; align-items: center; gap: 20px; margin-bottom: 15px; width: 100%;}
+        .story-step-header { display: flex; align-items: center; gap: 20px; margin-bottom: 15px; width: 100;}
         .story-step .icon { font-size: 2.5rem; color: var(--accent-color); font-family: 'Playfair Display', serif; min-width: 40px; }
         .story-step h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: white; margin: 0; }
         .story-step p { color: var(--light-gray); padding-left: 60px; }
@@ -252,7 +252,7 @@
                     <div class="video-overlay">
                         <button class="play-button" onclick="playVideo()">Play Video</button>
                     </div>
-                    <div id="youtube-player"></div>
+                    <iframe id="youtube-player" src="https://www.youtube.com/embed/dR-sFVDuHbQ?enablejsapi=1&loop=0&rel=0&showinfo=0&controls=1&mute=1&cc_load_policy=1&cc_lang_pref=en" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
@@ -297,7 +297,6 @@
         </div>
     </footer>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         // Prevent any redirects to index.html
         window.onload = function() {
@@ -321,42 +320,46 @@
         let player;
         let hasPlayed = false;
         let isPlayerReady = false;
-        let maxAttempts = 10;
-        let attemptCount = 0;
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '100%',
-                width: '100%',
-                videoId: 'dR-sFVDuHbQ',
-                playerVars: {
-                    'loop': 0,
-                    'playlist': 'dR-sFVDuHbQ',
-                    'start': 0,
-                    'rel': 0,
-                    'showinfo': 0,
-                    'controls': 1,
-                    'cc_lang_pref': 'en',
-                    'cc_load_policy': 1
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
+        // Initialize player
+        function initializePlayer() {
+            player = document.getElementById('youtube-player');
             isPlayerReady = true;
-            attemptCount = 0; // Reset attempts when player is ready
+
+            // Listen for messages from the iframe
+            window.addEventListener('message', function(event) {
+                if (event.origin !== 'https://www.youtube.com') return;
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.event === 'infoDelivery' && data.info && data.info.playerState === 0 && hasPlayed) {
+                        // Video ended, seek to 0 and pause
+                        player.contentWindow.postMessage(JSON.stringify({
+                            event: 'command',
+                            func: 'seekTo',
+                            args: [0, true]
+                        }), 'https://www.youtube.com');
+                        player.contentWindow.postMessage(JSON.stringify({
+                            event: 'command',
+                            func: 'pauseVideo'
+                        }), 'https://www.youtube.com');
+                    }
+                } catch (e) {}
+            });
+
             const videoWrapper = document.querySelector('.video-wrapper');
             const videoOverlay = document.querySelector('.video-overlay');
 
             const videoObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasPlayed && isPlayerReady) {
-                        player.playVideo();
-                        player.mute();
+                        player.contentWindow.postMessage(JSON.stringify({
+                            event: 'command',
+                            func: 'playVideo'
+                        }), 'https://www.youtube.com');
+                        player.contentWindow.postMessage(JSON.stringify({
+                            event: 'command',
+                            func: 'mute'
+                        }), 'https://www.youtube.com');
                         hasPlayed = true;
                         videoOverlay.classList.add('hidden');
                         videoObserver.unobserve(videoWrapper);
@@ -367,37 +370,26 @@
             videoObserver.observe(videoWrapper);
         }
 
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED && hasPlayed) {
-                player.seekTo(0); // Go back to start
-                player.pauseVideo(); // Pause the video
-            }
-        }
-
         function playVideo() {
-            if (isPlayerReady && player && typeof player.playVideo === 'function') {
-                player.playVideo();
-                player.unMute();
+            if (isPlayerReady && player) {
+                player.contentWindow.postMessage(JSON.stringify({
+                    event: 'command',
+                    func: 'playVideo'
+                }), 'https://www.youtube.com');
+                player.contentWindow.postMessage(JSON.stringify({
+                    event: 'command',
+                    func: 'unMute'
+                }), 'https://www.youtube.com');
                 hasPlayed = true;
-                attemptCount = 0; // Reset attempts on success
                 document.querySelector('.video-overlay').classList.add('hidden');
-            } else if (attemptCount < maxAttempts) {
-                console.log(`Player not ready yet. Attempt ${attemptCount + 1}/${maxAttempts}. Waiting for API to load.`);
-                attemptCount++;
-                setTimeout(playVideo, 500); // Retry after 500ms
             } else {
-                console.error('Failed to load YouTube player after maximum attempts. Please try refreshing the page.');
+                console.log('Player not ready. Waiting for iframe to load.');
+                setTimeout(playVideo, 500);
             }
         }
 
-        // Check if YouTube API script is loaded
-        function checkYouTubeAPILoaded() {
-            if (typeof YT === 'undefined' || !YT.Player) {
-                console.log('YouTube API not loaded yet. Retrying...');
-                setTimeout(checkYouTubeAPILoaded, 500);
-            }
-        }
-        checkYouTubeAPILoaded();
+        // Initialize player when iframe is loaded
+        document.getElementById('youtube-player').onload = initializePlayer;
 
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {

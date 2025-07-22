@@ -10,7 +10,7 @@
     <meta property="og:title" content="Progressio - System, który buduje zwycięzców">
     <meta property="og:description" content="Precyzyjny system do projektowania przyszłości i egzekwowania planu z dyscypliną. Dołącz do listy oczekujących.">
     <meta property="og:image" content="hero-image.png"> <!-- Twój plik PNG -->
-    <meta property="og:url" content="https://landingpage.progressio.giize.com/"> 
+    <meta property="og:url" content="https://twojadomena.pl/"> <!-- Zmień na URL strony -->
     <meta property="og:type" content="website">
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico">
@@ -66,7 +66,7 @@
         #form-section { background-color: var(--dark-gray); padding-top: 100px; padding-bottom: 100px; }
         .form-container h2 { font-size: 2.5rem; }
         .google-form-wrapper { position: relative; width: 100%; max-width: 500px; margin: 30px auto 0 auto; height: 260px; }
-        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; sandbox="allow-scripts allow-same-origin allow-forms allow-popups"; } /* Naprawa CORS */
         .form-benefit-text { font-size: 1.1rem; color: var(--text-color); margin-top: 40px; font-weight: 400; }
         .footer { padding: 60px 20px; font-size: 0.9rem; color: #777; text-align: center; border-top: 1px solid #222; }
         .footer-logo-container { margin-bottom: 30px; }
@@ -77,6 +77,15 @@
         .language-notice { font-size: 1rem; color: var(--light-gray); font-style: italic; max-width: 500px; margin: -40px auto 40px auto; padding: 10px; border: 1px solid #333; border-radius: 5px; }
         
         /* Stylizacja przełącznika języka */
+        .language-switcher { 
+            text-align: center; 
+            padding: 5px 0; 
+            background-color: var(--dark-gray); 
+            border-bottom: 1px solid #222; 
+            z-index: 999; 
+            position: relative; 
+            display: none; /* Ukryty na PC, widoczny tylko na mobile */
+        }
         .language-dropdown {
             position: relative;
             display: inline-block;
@@ -155,7 +164,6 @@
                 transform: translateY(-50%);
             }
             .header-left .logo-text { display: none; } /* Ukrywamy tekst na mobile w lewym logo */
-            .header-left .logo-img { display: none; } /* Ukrywamy lwa na mobile, aby language był w jego miejscu */
             
             .header-center { 
                 display: flex;
@@ -201,45 +209,45 @@
     <header class="sticky-header">
         <div class="header-content">
             <div class="header-left">
-                <!-- Przycisk języka po lewej na PC i mobile (w miejscu lwa na mobile) -->
+                <!-- Language switcher on the left for PC -->
                 <div class="language-dropdown">
-                    <button class="language-dropdown-button" onclick="toggleDropdown()" aria-label="Przełącz język">
-                        <img src="globe.png" width="20" height="20" alt="Language Switcher" loading="lazy"> <!-- Miejsce na obraz globusa -->
-                        PL <!-- Bieżący język -->
+                    <button class="language-dropdown-button" onclick="toggleDropdown()" aria-label="Switch language">
+                        <img src="globe.png" width="20" height="20" alt="Language Switcher" loading="lazy"> <!-- Place for globe image -->
+                        EN <!-- Current language -->
                     </button>
                     <div class="language-dropdown-content">
-                        <a href="#" class="active">PL</a>
-                        <a href="en.html">EN</a>
+                        <a href="index.html">PL</a>
+                        <a href="#" class="active">EN</a>
                     </div>
                 </div>
+            </div>
+            <div class="header-center">
+                <!-- Logo in the center for PC -->
                 <a href="#" class="logo-container">
                     <img src="logo.png" alt="Grankers Team Logo" class="logo-img" loading="lazy">
                     <span class="logo-text">PROGRESSIO</span>
                 </a>
             </div>
-            <div class="header-center">
-                <!-- Logo na środku na PC (puste na mobile) -->
-            </div>
             <div class="header-right">
                 <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                    <span class="nav-button-text">Odwiedź Kanał Twórcy</span>
+                    <span class="nav-button-text">Visit the Creator's Channel</span>
                 </a>
             </div>
         </div>
     </header>
 
     <section class="hero container">
-        <h1 class="reveal">SYSTEM, KTÓRY BUDUJE ZWYCIĘZCÓW.</h1>
-        <p class="reveal">Największą siłą, jaką możesz posiąść, jest umiejętność dotrzymywania słowa danego samemu sobie. To ona oddziela intencje od rezultatów. Progressio nie jest zbiorem inspiracji. To precyzyjny system, który uczy, jak projektować swoją przyszłość, a potem, dzień po dniu, egzekwować ten plan z bezkompromisową dyscypliną.</p>
-        <a href="#form-section" class="cta-button reveal" aria-label="Dołącz do listy oczekujących">Dołącz do Listy Oczekujących</a>
+        <h1 class="reveal">THE SYSTEM THAT BUILDS WINNERS.</h1>
+        <p class="reveal">The greatest power you can possess is the ability to keep your word to yourself. It separates intentions from results. Progressio is not a collection of inspirations. It is a precise system that teaches how to design your future and then, day by day, execute that plan with uncompromising discipline.</p>
+        <a href="#form-section" class="cta-button reveal" aria-label="Join the waiting list">Join the Waiting List</a>
     </section>
 
     <main>
         <section class="section">
             <div class="container">
-                <h2 class="section-title reveal">OBEJRZYJ NASZ MANIFEST</h2>
-                <p class="section-subtitle reveal">Zanim zdecydujesz, posłuchaj idei, która jest sercem tego systemu. To ona odróżnia tych, którzy działają, od tych, którzy tylko planują.</p>
+                <h2 class="section-title reveal">WATCH OUR MANIFESTO</h2>
+                <p class="section-subtitle reveal">Before you decide, listen to the idea that is the heart of this system. It distinguishes those who act from those who only plan.</p>
                 <div class="video-wrapper reveal">
                     <div id="youtube-player"></div>
                 </div>
@@ -254,23 +262,23 @@
         
         <section class="section">
             <div class="container">
-                 <h2 class="section-title reveal">To nie produkt. To Twoja nowa tożsamość.</h2>
-                 <p class="section-subtitle reveal">Progressio nie daje Ci chwilowego kopa. To system, który na stałe zmienia Twoje oprogramowanie mentalne. Uczy Cię myśleć i działać jak zwycięzca, dla którego dyscyplina i samokontrola są naturalne jak oddychanie.</p>
-                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">I</div><h3>Konfrontacja z Chaosem</h3></div><p>Wszystko zaczyna się od klarowności. Zamiast ogólnych marzeń, tworzysz precyzyjną, 90-dniową strategię. Definiujesz swój cel, identyfikujesz kluczowy nawyk, który Cię do niego doprowadzi i przygotowujesz się na przeszkody, zanim się pojawią.</p></div>
-                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">II</div><h3>Codzienne Działanie</h3></div><p>Wielkie cele realizuje się poprzez małe, konsekwentne kroki. Prosty, codzienny system zapisu staje się Twoim lustrem. Zmusza Cię do konfrontacji z rzeczywistością i buduje pęd, który jest potężniejszy niż jakakolwiek chwilowa motywacja.</p></div>
-                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">III</div><h3>Mistrzostwo przez Refleksję</h3></div><p>Działanie bez analizy to chaos. Systematyczna refleksja nad Twoimi postępami pozwala Ci uczyć się z własnych doświadczeń. Adaptujesz swoją strategię, stając się z każdym tygodniem skuteczniejszym i bardziej świadomym strategiem swojego życia.</p></div>
+                 <h2 class="section-title reveal">This is not a product. This is your new identity.</h2>
+                 <p class="section-subtitle reveal">Progressio doesn't give you a temporary boost. It's a system that permanently changes your mental software. It teaches you to think and act like a winner, for whom discipline and self-control are as natural as breathing.</p>
+                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">I</div><h3>Confrontation with Chaos</h3></div><p>Everything starts with clarity. Instead of general dreams, you create a precise, 90-day strategy. You define your goal, identify the key habit that will lead you to it, and prepare for obstacles before they appear.</p></div>
+                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">II</div><h3>Daily Action</h3></div><p>Great goals are achieved through small, consistent steps. A simple, daily recording system becomes your mirror. It forces you to confront reality and builds momentum that is more powerful than any temporary motivation.</p></div>
+                 <div class="story-step reveal"><div class="story-step-header"><div class="icon">III</div><h3>Mastery through Reflection</h3></div><p>Action without analysis is chaos. Systematic reflection on your progress allows you to learn from your own experiences. You adapt your strategy, becoming more effective and aware strategist of your life with each week.</p></div>
             </div>
         </section>
 
         <section id="form-section" class="section">
              <div class="container form-container">
-                <h2 class="section-title reveal">Jesteś Gotów Podjąć Działanie?</h2>
-                <p class="section-subtitle reveal">Zostaw swój e-mail, aby otrzymać powiadomienie o starcie sprzedaży. To Twoja deklaracja gotowości do podjęcia pracy.</p>
-                <p class="language-notice reveal">Ważna informacja: Premierowa edycja dziennika Progressio zostanie wydana w języku polskim.</p>
+                <h2 class="section-title reveal">Are You Ready to Take Action?</h2>
+                <p class="section-subtitle reveal">Leave your email to receive a notification about the sales launch. This is your declaration of readiness to start working.</p>
+                <p class="language-notice reveal">Important information: The premiere edition of the Progressio journal will be released in Polish.</p>
                 <div class="google-form-wrapper reveal">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec8oC7l_a1RE532VpDAhPNeL76i271pXGEUcXV7GdPwKc0ZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec8oC7l_a1RE532VpDAhPNeL76i271pXGEUcXV7GdPwKc0ZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" sandbox="allow-scripts allow-same-origin allow-forms allow-popups">Loading…</iframe>
                 </div>
-                <p class="form-benefit-text reveal">W podziękowaniu za zaufanie, w dniu premiery dziennika otrzymasz od nas <strong>specjalną zniżkę</strong> oraz dostęp do ekskluzywnych materiałów dodatkowych.</p>
+                <p class="form-benefit-text reveal">In thanks for your trust, on the day of the journal's premiere, you will receive a <strong>special discount</strong> from us and access to exclusive additional materials.</p>
              </div>
         </section>
     </main>
@@ -281,8 +289,8 @@
                 <img src="logo.png" alt="Grankers Team Logo" class="footer-logo" loading="lazy">
             </div>
             <p class="footer-brand-text"><strong>PROGRESSIO by Grankers Team</strong><br>
-            "Zwycięstwo nie jest dla tych, którzy go pragną. Jest dla tych, którzy do niego dążą."</p>
-            <p style="margin-top: 30px;">&copy; 2025 Progressio. Wszelkie prawa zastrzeżone.</p>
+            "Victory is not for those who desire it. It is for those who pursue it."</p>
+            <p style="margin-top: 30px;">&copy; 2025 Progressio. All rights reserved.</p>
         </div>
     </footer>
 
@@ -312,6 +320,8 @@
                     'showinfo': 0, 
                     'modestbranding': 1, 
                     'mute': 1,
+                    'cc_load_policy': 1,
+                    'cc_lang_pref': 'en',
                     'playsinline': 1  // Pomaga na mobile
                 },
                 events: { 

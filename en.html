@@ -66,7 +66,7 @@
         #form-section { background-color: var(--dark-gray); padding-top: 100px; padding-bottom: 100px; }
         .form-container h2 { font-size: 2.5rem; }
         .google-form-wrapper { position: relative; width: 100%; max-width: 500px; margin: 30px auto 0 auto; height: 260px; }
-        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; sandbox="allow-scripts allow-same-origin allow-forms allow-popups"; } /* Naprawa CORS */
+        .google-form-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals"; } /* Rozszerzona poprawka CORS */
         .form-benefit-text { font-size: 1.1rem; color: var(--text-color); margin-top: 40px; font-weight: 400; }
         .footer { padding: 60px 20px; font-size: 0.9rem; color: #777; text-align: center; border-top: 1px solid #222; }
         .footer-logo-container { margin-bottom: 30px; }
@@ -149,6 +149,7 @@
                 padding: 10px 20px;
                 font-size: 1.1rem;
             }
+            .google-form-wrapper { height: 500px; max-width: 700px; } /* Większy formularz na PC */
         }
 
         /* Reszta media queries */
@@ -216,7 +217,7 @@
                         EN <!-- Current language -->
                     </button>
                     <div class="language-dropdown-content">
-                        <a href="index.html">PL</a>
+                        <a href="https://landingpage.progressio.giize.com">PL</a>
                         <a href="#" class="active">EN</a>
                     </div>
                 </div>
@@ -276,7 +277,7 @@
                 <p class="section-subtitle reveal">Leave your email to receive a notification about the sales launch. This is your declaration of readiness to start working.</p>
                 <p class="language-notice reveal">Important information: The premiere edition of the Progressio journal will be released in Polish.</p>
                 <div class="google-form-wrapper reveal">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec8oC7l_a1RE532VpDAhPNeL76i271pXGEUcXV7GdPwKc0ZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" sandbox="allow-scripts allow-same-origin allow-forms allow-popups">Loading…</iframe>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec8oC7l_a1RE532VpDAhPNeL76i271pXGEUcXV7GdPwKc0ZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation allow-modals">Loading…</iframe>
                 </div>
                 <p class="form-benefit-text reveal">In thanks for your trust, on the day of the journal's premiere, you will receive a <strong>special discount</strong> from us and access to exclusive additional materials.</p>
              </div>

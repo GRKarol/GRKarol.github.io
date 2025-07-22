@@ -320,6 +320,9 @@
 
         let player;
         let hasPlayed = false;
+        let isPlayerReady = false;
+        let maxAttempts = 10;
+        let attemptCount = 0;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
@@ -327,7 +330,7 @@
                 width: '100%',
                 videoId: 'dR-sFVDuHbQ',
                 playerVars: {
-                    'loop': 0, // Disable default looping
+                    'loop': 0,
                     'playlist': 'dR-sFVDuHbQ',
                     'start': 0,
                     'rel': 0,
@@ -344,13 +347,14 @@
         }
 
         function onPlayerReady(event) {
-            // Player is ready, but don't play yet
+            isPlayerReady = true;
+            attemptCount = 0; // Reset attempts when player is ready
             const videoWrapper = document.querySelector('.video-wrapper');
             const videoOverlay = document.querySelector('.video-overlay');
 
             const videoObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && !hasPlayed) {
+                    if (entry.isIntersecting && !hasPlayed && isPlayerReady) {
                         player.playVideo();
                         player.mute();
                         hasPlayed = true;
@@ -371,11 +375,29 @@
         }
 
         function playVideo() {
-            player.playVideo();
-            player.unMute();
-            hasPlayed = true;
-            document.querySelector('.video-overlay').classList.add('hidden');
+            if (isPlayerReady && player && typeof player.playVideo === 'function') {
+                player.playVideo();
+                player.unMute();
+                hasPlayed = true;
+                attemptCount = 0; // Reset attempts on success
+                document.querySelector('.video-overlay').classList.add('hidden');
+            } else if (attemptCount < maxAttempts) {
+                console.log(`Player not ready yet. Attempt ${attemptCount + 1}/${maxAttempts}. Waiting for API to load.`);
+                attemptCount++;
+                setTimeout(playVideo, 500); // Retry after 500ms
+            } else {
+                console.error('Failed to load YouTube player after maximum attempts. Please try refreshing the page.');
+            }
         }
+
+        // Check if YouTube API script is loaded
+        function checkYouTubeAPILoaded() {
+            if (typeof YT === 'undefined' || !YT.Player) {
+                console.log('YouTube API not loaded yet. Retrying...');
+                setTimeout(checkYouTubeAPILoaded, 500);
+            }
+        }
+        checkYouTubeAPILoaded();
 
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {

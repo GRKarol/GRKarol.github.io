@@ -77,15 +77,6 @@
         .language-notice { font-size: 1rem; color: var(--light-gray); font-style: italic; max-width: 500px; margin: -40px auto 40px auto; padding: 10px; border: 1px solid #333; border-radius: 5px; }
         
         /* Stylizacja przełącznika języka */
-        .language-switcher { 
-            text-align: center; 
-            padding: 5px 0; 
-            background-color: var(--dark-gray); 
-            border-bottom: 1px solid #222; 
-            z-index: 999; 
-            position: relative; 
-            display: none; /* Ukryty na PC, widoczny tylko na mobile */
-        }
         .language-dropdown {
             position: relative;
             display: inline-block;
@@ -164,6 +155,7 @@
                 transform: translateY(-50%);
             }
             .header-left .logo-text { display: none; } /* Ukrywamy tekst na mobile w lewym logo */
+            .header-left .logo-img { display: none; } /* Ukrywamy lwa na mobile, aby language był w jego miejscu */
             
             .header-center { 
                 display: flex;
@@ -196,7 +188,6 @@
             .story-step .icon { font-size: 2rem; }
             .language-notice { margin-top: -20px; }
             .footer { padding: 50px 15px; }
-            .language-switcher { display: block; } /* Widoczny tylko na mobile */
             .google-form-wrapper { min-height: 300px; } /* Lepszy rozmiar formularza na mobile */
         }
 
@@ -210,7 +201,7 @@
     <header class="sticky-header">
         <div class="header-content">
             <div class="header-left">
-                <!-- Language switcher on the left for PC -->
+                <!-- Language switcher on the left for PC and mobile (in place of lion on mobile) -->
                 <div class="language-dropdown">
                     <button class="language-dropdown-button" onclick="toggleDropdown()" aria-label="Switch language">
                         <img src="globe.png" width="20" height="20" alt="Language Switcher" loading="lazy"> <!-- Place for globe image -->
@@ -221,13 +212,13 @@
                         <a href="#" class="active">EN</a>
                     </div>
                 </div>
-            </div>
-            <div class="header-center">
-                <!-- Logo in the center for PC -->
                 <a href="#" class="logo-container">
                     <img src="logo.png" alt="Grankers Team Logo" class="logo-img" loading="lazy">
                     <span class="logo-text">PROGRESSIO</span>
                 </a>
+            </div>
+            <div class="header-center">
+                <!-- Logo in the center for PC (empty on mobile) -->
             </div>
             <div class="header-right">
                 <a href="https://www.youtube.com/@GrankersTeam" target="_blank" class="nav-button">
@@ -237,20 +228,6 @@
             </div>
         </div>
     </header>
-
-    <!-- Language switcher below header - only for mobile -->
-    <div class="language-switcher">
-        <div class="language-dropdown">
-            <button class="language-dropdown-button" onclick="toggleDropdown()" aria-label="Switch language">
-                <img src="globe.png" width="20" height="20" alt="Language Switcher" loading="lazy"> <!-- Place for globe image -->
-                EN <!-- Current language -->
-            </button>
-            <div class="language-dropdown-content">
-                <a href="index.html">PL</a>
-                <a href="#" class="active">EN</a>
-            </div>
-        </div>
-    </div>
 
     <section class="hero container">
         <h1 class="reveal">THE SYSTEM THAT BUILDS WINNERS.</h1>
@@ -336,15 +313,18 @@
                     'modestbranding': 1, 
                     'mute': 1,
                     'cc_load_policy': 1,
-                    'cc_lang_pref': 'en'
+                    'cc_lang_pref': 'en',
+                    'playsinline': 1  // Pomaga na mobile
                 },
                 events: { 
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': function(event) { console.log('Video error: ' + event.data); }  // Debug błędów
                 }
             });
         }
         function onPlayerReady(event) {
+            console.log('Video player ready');  // Debug: Sprawdź, czy player się ładuje
             const videoElement = document.getElementById('youtube-player');
             const videoObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {

@@ -342,26 +342,6 @@
             player = document.getElementById('youtube-player');
             isPlayerReady = true;
 
-            // Listen for messages from the iframe
-            window.addEventListener('message', function(event) {
-                if (event.origin !== 'https://www.youtube.com') return;
-                try {
-                    const data = JSON.parse(event.data);
-                    if (data.event === 'infoDelivery' && data.info && data.info.playerState === 0 && hasPlayed) {
-                        // Video ended, seek to 0 and pause
-                        player.contentWindow.postMessage(JSON.stringify({
-                            event: 'command',
-                            func: 'seekTo',
-                            args: [0, true]
-                        }), 'https://www.youtube.com');
-                        player.contentWindow.postMessage(JSON.stringify({
-                            event: 'command',
-                            func: 'pauseVideo'
-                        }), 'https://www.youtube.com');
-                    }
-                } catch (e) {}
-            });
-
             const videoWrapper = document.querySelector('.video-wrapper');
             const videoOverlay = document.querySelector('.video-overlay');
 

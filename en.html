@@ -89,12 +89,12 @@
         .section { padding: 100px 20px; text-align: center; }
         .section-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; margin-bottom: 20px; }
         .section-subtitle { font-size: 1.2rem; color: var(--light-gray); max-width: 700px; margin: 0 auto 80px auto; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; max-width: 800px; margin: 0 auto; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        #youtube-player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; gap: 10px; z-index: 10; }
+        .video-wrapper { position: relative; max-width: 800px; margin: 0 auto; border-radius: 8px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        #youtube-player { width: 100%; height: auto; aspect-ratio: 16/9; }
+        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 10; }
         .video-overlay.hidden { display: none; }
-        .play-button, .unmute-button { padding: 15px 30px; font-size: 1.2rem; font-weight: 700; border: 2px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; transition: all 0.3s ease; }
-        .play-button:hover, .unmute-button:hover { background-color: var(--accent-color); color: var(--bg-color); transform: scale(1.05); }
+        .play-button { padding: 15px 30px; font-size: 1.2rem; font-weight: 700; border: 2px solid var(--accent-color); border-radius: 5px; background-color: transparent; color: var(--accent-color); cursor: pointer; transition: all 0.3s ease; }
+        .play-button:hover { background-color: var(--accent-color); color: var(--bg-color); transform: scale(1.05); }
         .story-step { margin-bottom: 60px; text-align: left; display: flex; flex-direction: column; align-items: center; max-width: 600px; margin-left: auto; margin-right: auto;}
         .story-step-header { display: flex; align-items: center; gap: 20px; margin-bottom: 15px; width: 100;}
         .story-step .icon { font-size: 2.5rem; color: var(--accent-color); font-family: 'Playfair Display', serif; min-width: 40px; }
@@ -192,8 +192,9 @@
         @media (max-width: 768px) {
             body { font-size: 16px; padding-top: 60px; }
             .container { padding: 20px 15px; }
-            .video-wrapper { max-width: 100%; padding-bottom: 75%; } /* Adjusted for mobile */
-            .play-button, .unmute-button { padding: 10px 20px; font-size: 1rem; }
+            .video-wrapper { max-width: 100%; }
+            .video-overlay { display: none; } /* Hide overlay on mobile */
+            .play-button { padding: 10px 20px; font-size: 1rem; }
             .header-content { position: relative; justify-content: space-between; }
             .header-left {
                 position: absolute;
@@ -286,9 +287,8 @@
                 <div class="video-wrapper reveal">
                     <div class="video-overlay">
                         <button class="play-button" onclick="playVideo()">Play Video</button>
-                        <button class="unmute-button" onclick="unmuteVideo()">Unmute</button>
                     </div>
-                    <iframe id="youtube-player" src="https://www.youtube.com/embed/dR-sFVDuHbQ?enablejsapi=1&loop=0&rel=0&showinfo=0&controls=1&cc_load_policy=1&cc_lang_pref=en" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe id="youtube-player" width="800" height="450" src="https://www.youtube.com/embed/dR-sFVDuHbQ?loop=0&rel=0&showinfo=0&controls=1&cc_load_policy=1&cc_lang_pref=en" title="Progressio Manifesto" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
             </div>
         </section>
@@ -353,73 +353,10 @@
             }
         });
 
-        let player;
-        let hasPlayed = false;
-        let isPlayerReady = false;
-
-        // Initialize player
-        function initializePlayer() {
-            player = document.getElementById('youtube-player');
-            isPlayerReady = true;
-
-            const videoWrapper = document.querySelector('.video-wrapper');
-            const videoOverlay = document.querySelector('.video-overlay');
-
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !hasPlayed && isPlayerReady) {
-                        player.contentWindow.postMessage(JSON.stringify({
-                            event: 'command',
-                            func: 'playVideo'
-                        }), 'https://www.youtube.com');
-                        hasPlayed = true;
-                        videoOverlay.classList.add('hidden');
-                        videoObserver.unobserve(videoWrapper);
-                    }
-                });
-            }, { threshold: 0.75 });
-
-            videoObserver.observe(videoWrapper);
-        }
-
         function playVideo() {
-            if (isPlayerReady && player) {
-                player.contentWindow.postMessage(JSON.stringify({
-                    event: 'command',
-                    func: 'playVideo'
-                }), 'https://www.youtube.com');
-                player.contentWindow.postMessage(JSON.stringify({
-                    event: 'command',
-                    func: 'unMute'
-                }), 'https://www.youtube.com');
-                hasPlayed = true;
-                document.querySelector('.video-overlay').classList.add('hidden');
-            } else {
-                console.log('Player not ready. Waiting for iframe to load.');
-                setTimeout(playVideo, 500);
-            }
+            const videoOverlay = document.querySelector('.video-overlay');
+            videoOverlay.classList.add('hidden');
         }
-
-        function unmuteVideo() {
-            if (isPlayerReady && player) {
-                player.contentWindow.postMessage(JSON.stringify({
-                    event: 'command',
-                    func: 'unMute'
-                }), 'https://www.youtube.com');
-                player.contentWindow.postMessage(JSON.stringify({
-                    event: 'command',
-                    func: 'playVideo'
-                }), 'https://www.youtube.com');
-                hasPlayed = true;
-                document.querySelector('.video-overlay').classList.add('hidden');
-            } else {
-                console.log('Player not ready. Waiting for iframe to load.');
-                setTimeout(unmuteVideo, 500);
-            }
-        }
-
-        // Initialize player when iframe is loaded
-        document.getElementById('youtube-player').onload = initializePlayer;
 
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {

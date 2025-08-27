@@ -1,5 +1,39 @@
 # 📋 INSTRUKCJE ZARZĄDZANIA STRONĄ PROGRESSIO
 
+## 📱 NAJWAŻNIEJSZE POPRAWKI MOBILNE (2025)
+**Problem:** Strona przesuwała się poziomo na mobile, tekst wychodził poza szare tło.
+**Rozwiązanie:** Kompleksowe poprawki CSS dla mobile:
+
+```css
+@media (max-width: 768px) {
+    /* Fundamentalne poprawki mobile */
+    * { box-sizing: border-box; }
+    html, body { width: 100%; overflow-x: hidden; }
+    body { min-width: 320px; }
+    
+    /* Wszystkie kontenery mają pełną szerokość */
+    .container { width: 100%; max-width: 100%; }
+    .header-content { width: 100%; max-width: 100%; padding: 0 15px; }
+    
+    /* Story steps - czyste animacje na mobile */
+    .story-step.reveal { 
+        opacity: 0; 
+        transform: translateY(40px); 
+        transition: all 0.8s ease-out;
+    }
+    .story-step.reveal.visible { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Globalne zabezpieczenia */
+* { max-width: 100%; }
+img, video, iframe { max-width: 100%; height: auto; }
+```
+
+---
+
 ## 🖼️ DODAWANIE ZDJĘĆ DO GALERII
 
 ### Krok 1: Dodanie nowego zdjęcia
